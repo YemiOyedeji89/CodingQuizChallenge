@@ -54,6 +54,7 @@ options = document.getElementById("options");
 resultSection = document.getElementById("display-result");
 showQuestions = document.getElementById("question-title");
 listLists = document.querySelector(".order-lists");
+var button = document.createElement("BUTTON");
 
 
 var indexOn;
@@ -96,105 +97,50 @@ function setQuestion(){
         answerOption2= quiz[indexOn].answers[1];
         answerOption3= quiz[indexOn].answers[2];
        
-        
-       
         //CORRECT ANSWER
         correctAnswerDisplayed =  quiz[indexOn].correctAnswer;
         
     };
     // DISPLAY QUESTION ON THE HTML 
     showQuestions.textContent = displayQuestion; 
-    //console.log(correctAnswerDisplayed);
-    //console.log(typeof (correctAnswerDisplayed));
+    
 };
 
 
 //// TO DISPLAY ANSWER OPTIONS ////
 function showAnswerOptions(){
-
-    // DISPLAY ANSWER OPTION 1 AND ADDING BUTTON
-    var  li1 = document.createElement("li");
-    options.appendChild(li1);
-    li1Btn = document.createElement("button");
-    //li1Btn.setAttribute("button", "btn");
-    li1Btn.setAttribute("id", "list-option1");
-    li1Btn.textContent =  answerOption1;
-    li1.appendChild(li1Btn);
-
-    // DISPLAY ANSWER OPTION 2 AND ADDING BUTTON
-    var  li2 = document.createElement("li");
-    options.appendChild(li2);
-    li2Btn = document.createElement("button");
-    li2Btn.setAttribute("button", "btn");
+  var myOptionItems = [answerOption1, answerOption2, answerOption3];
     
-    li2Btn.textContent =  answerOption2;
-    li2.appendChild(li2Btn);
+    myOptionItems.forEach((item)=>{
+    listOptions = document. createElement("li");
 
-    // DISPLAY ANSWER OPTION 3 AND ADDING BUTTON
-    var  li3 = document.createElement("li");
-    options.appendChild(li3);
-    li3Btn = document.createElement("button");
-    li3Btn.setAttribute("button", "btn");
-    li3Btn.textContent =  answerOption3;
-    li3.appendChild(li3Btn);
-
-    //console.log(li1Btn);
-    
-    
-   
-
-    //SELECTION ANSER OPTION
-    
-     listLists.addEventListener("click", answerUserSelect);
-    //listLists.setAttribute("button", "onclick='answeruserSelect()'");
-    function answerUserSelect (){
-        
-        
-        //answerSelectedOption1 = li1Btn.textContent;
-
-       console.log(indexOn);
-        console.log(answerOption1);
-        console.log(correctAnswerDisplayed); 
-        console.log(listLists);
-        
-        
-        
- 
-
-       // console.log(typeof( options)); 
-        /* if (indexOn == 0 ){
-            if (answerOption3 === correctAnswerDisplayed){
-                resultSection.textContent = " Correct"
-            }else {
-                resultSection.textContent = " Wrong!"
-            };
-        }else if (indexOn == 1){
-            if (answerOption2 === correctAnswerDisplayed){
-                resultSection.textContent = " Correct"
-            }else {
-                resultSection.textContent = " Wrong!"
-            };
-        }else if (indexOn == 2){
-            if (answerOption1 === correctAnswerDisplayed){
-                resultSection.textContent = " Correct"
-            }else {
-                resultSection.textContent = " Wrong!"
-            };
-        }else{
-            if (answerOption2 === correctAnswerDisplayed){
-                resultSection.textContent = " Correct"
-            }else {
-                resultSection.textContent = " Wrong!"
-            };
-        };
-         */
-        
-    }   
-     
-    
+    var  button = document.createElement("BUTTON");
+    listOptions.appendChild(button);
+    listOptions.setAttribute("class", "list-options");
+    button.textContent = item;
+    options.appendChild(listOptions);
+  })
 }
 
-//ANSWER USER SELECTED 
-function showresult(){
-console.log("list one clicked")
+////SHOW ANSWER
+options.addEventListener("click", handleClick);
+
+function handleClick(event){
+  if(event.target.tagName !== "BUTTON"){
+      return;
+  }
+
+  var answerSelected = event.target.textContent;
+  if (
+      (indexOn == 0 && answerSelected === correctAnswerDisplayed) ||
+      (indexOn == 1 && answerSelected === correctAnswerDisplayed) ||
+      (indexOn == 2 && answerSelected === correctAnswerDisplayed) ||
+      (indexOn == 3 && answerSelected === correctAnswerDisplayed)
+    )
+  {
+      resultSection.textContent = " Correct!"
+  }else{
+      resultSection.textContent = " Wrong!"
+  }
 }
+
