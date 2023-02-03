@@ -199,8 +199,9 @@ function endQuestion(){
 
 function endOfquizScore(){
     endScreenDisplay.setAttribute("class", "visible");
+    finalScoreDisplay();
 }
 
 function finalScoreDisplay(){
-scoreSection = localStorage.getItem("score");
+scoreSection.textContent = localStorage.getItem("score");
 }
